@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/apiFragment">
+
+    <fragment
+        tools:layout="@layout/fragment_api"
+        android:id="@+id/apiFragment"
+        android:name="com.example.investcalculator.fragments.ApiFragment"
+        android:label="Monitor CryptoCurrency" >
+        <action
+            android:id="@+id/action_apiFragment_to_buyFragment2"
+            app:destination="@id/buyFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_buy"
+        android:id="@+id/buyFragment"
+        android:name="com.example.investcalculator.fragments.BuyFragment"
+        android:label="Buy CryptoCurrency" >
+        <action
+            android:id="@+id/action_buyFragment_to_dbFragment"
+            app:destination="@id/dbFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_db"
+        android:id="@+id/dbFragment"
+        android:name="com.example.investcalculator.fragments.DBFragment"
+        android:label="Your Wallet" >
+        <action
+            android:id="@+id/action_dbFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_settings"
+        android:id="@+id/settingsFragment"
+        android:name="com.example.investcalculator.fragments.SettingsFragment"
+        android:label="Settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_apiFragment"
+            app:destination="@id/apiFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+</navigation>

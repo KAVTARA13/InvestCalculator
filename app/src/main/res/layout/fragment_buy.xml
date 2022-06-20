@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_layout"
+        android:fontFamily="monospace"
+        android:paddingLeft="16dp"
+        android:paddingTop="10dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/buy_title"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:background="@color/white_contrast"
+        android:layoutDirection="rtl"
+        android:queryHint="Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <!-- everything below will be initially hidden -->
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linearLayout"
+        style="@style/RowContainer"
+        android:layout_marginTop="16dp"
+        android:background="@color/white_contrast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
+
+        <LinearLayout style="@style/RowContainer">
+
+            <LinearLayout style="@style/NameContainer">
+
+                <ImageView
+                    style="@style/CryptoIcon"
+                    android:src="@drawable/ic_baseline_monetization_on_24" />
+                <!-- this src is temporary -->
+                <TextView
+                    style="@style/CryptoName"
+                    android:text="Dogecoin" />
+
+                <TextView
+                    style="@style/CryptoSymbol"
+                    android:text="DOGE" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/CryptoLastPrice"
+                android:text="$0.058" />
+
+            <TextView
+                style="@style/Crypto24hChange"
+                android:text="+6.24%"
+                android:textColor="@color/green" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Spinner
+        android:visibility="gone"
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="40dp"
+        android:background="@color/white_contrast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:background="@color/white_contrast"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        tools:layout_editor_absoluteX="16dp">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:textColor="@color/dark_grey"
+            android:inputType="number" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:textColor="@color/light_grey"
+            android:enabled="false"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <Button
+        android:visibility="gone"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="20sp"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:backgroundTint="@color/grey"
+        android:text="Buy"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

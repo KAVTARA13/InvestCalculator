@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_layout"
+        android:fontFamily="monospace"
+        android:paddingLeft="16dp"
+        android:paddingTop="10dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/home_title"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="12dp"
+            >
+            <TextView
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Name"
+                android:textSize="14sp"
+                android:textColor="@color/light_grey"/>
+            <TextView
+                android:layout_weight="2.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Last Price"
+                android:textSize="14sp"
+                android:textColor="@color/light_grey"/>
+            <TextView
+                android:layout_weight="2.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="24h Change"
+                android:textSize="14sp"
+                android:textColor="@color/light_grey"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/RowContainer">
+            <LinearLayout
+                style="@style/NameContainer">
+                <ImageView
+                    android:src="@drawable/ic_baseline_monetization_on_24"
+                    style="@style/CryptoIcon"/>
+                <!-- this src is temporary -->
+                <TextView
+                    android:text="Bitcoin"
+                    style="@style/CryptoName"/>
+                <TextView
+                    android:text="BTC"
+                    style="@style/CryptoSymbol"/>
+            </LinearLayout>
+            <TextView
+                android:text="$19,887"
+                style="@style/CryptoLastPrice"/>
+            <TextView
+                android:text="+10.54%"
+                android:textColor="@color/green"
+                style="@style/Crypto24hChange"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/RowContainer">
+            <LinearLayout
+                style="@style/NameContainer">
+                <ImageView
+                    android:src="@drawable/ic_baseline_monetization_on_24"
+                    style="@style/CryptoIcon"/>
+                <!-- this src is temporary -->
+                <TextView
+                    android:text="Ethereum"
+                    style="@style/CryptoName"/>
+                <TextView
+                    android:text="ETH"
+                    style="@style/CryptoSymbol"/>
+            </LinearLayout>
+            <TextView
+                android:text="$1,076"
+                style="@style/CryptoLastPrice"/>
+            <TextView
+                android:text="-1.536%"
+                android:textColor="@color/red"
+                style="@style/Crypto24hChange"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
