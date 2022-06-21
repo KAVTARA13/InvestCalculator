@@ -6,18 +6,137 @@
     android:background="@color/white">
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_layout"
-        android:paddingTop="10dp"
+        android:fontFamily="monospace"
         android:paddingLeft="16dp"
+        android:paddingTop="10dp"
         android:paddingRight="16dp"
         android:paddingBottom="16dp"
         android:text="@string/wallet_title"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:fontFamily="monospace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:gravity="start"
+                android:text="Name"
+                android:textColor="@color/light_grey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:gravity="end"
+                android:text="Bought Price"
+                android:textColor="@color/light_grey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:gravity="end"
+                android:text="Current Price"
+                android:textColor="@color/light_grey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:gravity="end"
+                android:text="Profit"
+                android:textColor="@color/light_grey"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/RowContainer">
+
+            <LinearLayout style="@style/NameContainer">
+
+                <ImageView
+                    style="@style/CryptoIcon"
+                    android:src="@drawable/ic_baseline_monetization_on_24" />
+                <!-- this src is temporary -->
+                <TextView
+                    style="@style/CryptoName"
+                    android:text="Bitcoin" />
+
+                <TextView
+                    style="@style/CryptoSymbol"
+                    android:text="BTC" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/CryptoLastPrice"
+                android:text="$19,887" />
+            <TextView
+                style="@style/CryptoLastPrice"
+                android:text="$17,255" />
+
+            <TextView
+                style="@style/Crypto24hChange"
+                android:text="-13.23%"
+                android:textColor="@color/red" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/RowContainer">
+
+            <LinearLayout style="@style/NameContainer">
+
+                <ImageView
+                    style="@style/CryptoIcon"
+                    android:src="@drawable/ic_baseline_monetization_on_24" />
+                <!-- this src is temporary -->
+                <TextView
+                    style="@style/CryptoName"
+                    android:text="Ethereum" />
+
+                <TextView
+                    style="@style/CryptoSymbol"
+                    android:text="ETH" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/CryptoLastPrice"
+                android:text="$1,076" />
+
+            <TextView
+                style="@style/CryptoLastPrice"
+                android:text="$1,432" />
+
+            <TextView
+                style="@style/Crypto24hChange"
+                android:text="+33.08%"
+                android:textColor="@color/green" />
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
