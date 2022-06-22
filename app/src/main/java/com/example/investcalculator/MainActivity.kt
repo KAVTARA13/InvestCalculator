@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-<<<<<<< HEAD
         RestClient.getReqResApi.getCoins(apiLimit)
             .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
                 override fun onResponse(
@@ -93,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                 }
             })
          */
-=======
+
 //        RestClient.getReqResApi.getCoins(10)
 //            .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
 //                override fun onResponse(
@@ -129,7 +128,6 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            })
 
->>>>>>> a64db8deec08b1974bc08dbf2d9f6733d16c6009
     }
 //    override fun onResume() {
 //        handler.postDelayed(Runnable {
