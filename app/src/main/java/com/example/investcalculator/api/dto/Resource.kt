@@ -11,14 +11,17 @@ data class Coin(
     val quote: Quote?
 )
 
+
 data class Quote(
     @SerializedName("USD")
     val usd:USD?
 )
+
 data class USD(
     @SerializedName("price")
     val price:Double?
 )
+
 data class ReqResData<T>(
     @SerializedName("data")
     val data: List<T>?
