@@ -19,7 +19,9 @@ data class Quote(
 
 data class USD(
     @SerializedName("price")
-    val price:Double?
+    val price:Double?,
+    @SerializedName("percent_change_24h")
+    val percent_change_24h:Double?
 )
 
 data class ReqResData<T>(

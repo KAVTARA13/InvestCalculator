@@ -22,8 +22,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
+        android:id="@+id/apiDisplayContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +35,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="2dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="12dp"
             >
             <TextView
@@ -62,52 +62,6 @@
                 android:text="24h Change"
                 android:textSize="14sp"
                 android:textColor="@color/light_grey"/>
-        </LinearLayout>
-        <LinearLayout
-            style="@style/RowContainer">
-            <LinearLayout
-                style="@style/NameContainer">
-                <ImageView
-                    android:src="@drawable/ic_baseline_monetization_on_24"
-                    style="@style/CryptoIcon"/>
-                <!-- this src is temporary -->
-                <TextView
-                    android:text="Bitcoin"
-                    style="@style/CryptoName"/>
-                <TextView
-                    android:text="BTC"
-                    style="@style/CryptoSymbol"/>
-            </LinearLayout>
-            <TextView
-                android:text="$19,887"
-                style="@style/CryptoLastPrice"/>
-            <TextView
-                android:text="+10.54%"
-                android:textColor="@color/green"
-                style="@style/Crypto24hChange"/>
-        </LinearLayout>
-        <LinearLayout
-            style="@style/RowContainer">
-            <LinearLayout
-                style="@style/NameContainer">
-                <ImageView
-                    android:src="@drawable/ic_baseline_monetization_on_24"
-                    style="@style/CryptoIcon"/>
-                <!-- this src is temporary -->
-                <TextView
-                    android:text="Ethereum"
-                    style="@style/CryptoName"/>
-                <TextView
-                    android:text="ETH"
-                    style="@style/CryptoSymbol"/>
-            </LinearLayout>
-            <TextView
-                android:text="$1,076"
-                style="@style/CryptoLastPrice"/>
-            <TextView
-                android:text="-1.536%"
-                android:textColor="@color/red"
-                style="@style/Crypto24hChange"/>
         </LinearLayout>
 
     </LinearLayout>

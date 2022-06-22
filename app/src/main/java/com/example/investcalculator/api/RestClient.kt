@@ -7,8 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RestClient {
-    private lateinit var rwtrofit:Retrofit
-    private lateinit var rwtrofit2:Retrofit
+    private lateinit var retrofit:Retrofit
+    private lateinit var retrofit2:Retrofit
     private lateinit var okHttpClient:OkHttpClient
 
     fun initClients(){
@@ -16,13 +16,13 @@ object RestClient {
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
 
-        rwtrofit = Retrofit.Builder()
+        retrofit = Retrofit.Builder()
             .baseUrl("https://pro-api.coinmarketcap.com/v1/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        rwtrofit2 = Retrofit.Builder()
+        retrofit2 = Retrofit.Builder()
             .baseUrl("https://pro-api.coinmarketcap.com/v1/")
             .client(okHttpClient)
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -30,10 +30,10 @@ object RestClient {
     }
 
     private fun <S> getService(serviceClass:Class<S>): S {
-        return rwtrofit.create(serviceClass)
+        return retrofit.create(serviceClass)
     }
     private fun <S> getService2(serviceClass:Class<S>): S {
-        return rwtrofit2.create(serviceClass)
+        return retrofit2.create(serviceClass)
     }
 
     val getReqResApi:ReqResApi
