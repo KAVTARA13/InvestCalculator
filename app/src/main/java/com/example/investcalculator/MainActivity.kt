@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
 
-//        RestClient.getReqResApi.getCoins(1)
+//        RestClient.getReqResApi.getCoins(10)
 //            .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
 //                override fun onResponse(
 //                    call: Call<ReqResData<Coin>>,
@@ -62,22 +62,23 @@ class MainActivity : AppCompatActivity() {
 //                    t.getLocalizedMessage()?.let { Log.d("XXXX", it) };
 //                }
 //            })
-        val filterCoin = "SOL"
-        RestClient.getReqResApi2.getCoinBySlug( filterCoin)
-            .enqueue(object : retrofit2.Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if (response.isSuccessful) {
-                        val text = response.body().toString().substring(response.body().toString().indexOf(filterCoin+"\":{")+5,response.body().toString().length-2 )
-                        val coin = Gson().fromJson(text , Coin::class.java)
-                        Log.d("Coin", coin.name.toString())
-                        Log.d("Coin", coin.symbol.toString())
-                        Log.d("Coin", coin.quote?.usd?.price.toString())
-                    }
-                }
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-            })
+//        val filterCoin = "Sol"
+//        RestClient.getReqResApi2.getCoinBySymbol( filterCoin)
+//            .enqueue(object : retrofit2.Callback<String> {
+//                override fun onResponse(call: Call<String>, response: Response<String>) {
+//                    if (response.isSuccessful) {
+//                        val text = response.body().toString().substring(response.body().toString().indexOf(filterCoin.uppercase()+"\":{")+5,response.body().toString().length-2 )
+//                        val coin = Gson().fromJson(text , Coin::class.java)
+//                        Log.d("Coin", coin.name.toString())
+//                        Log.d("Coin", coin.symbol.toString())
+//                        Log.d("Coin", coin.quote?.usd?.price.toString())
+//                    }
+//                }
+//                override fun onFailure(call: Call<String>, t: Throwable) {
+//                    TODO("Not yet implemented")
+//                }
+//            })
+
     }
 //    override fun onResume() {
 //        handler.postDelayed(Runnable {
