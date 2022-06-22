@@ -11,6 +11,10 @@ interface ReqResApi {
     fun getCoins(@Query("limit") limit:Int): retrofit2.Call<ReqResData<Coin>>
 
     @Headers("X-CMC_PRO_API_KEY: 648810c2-13a2-4163-86c5-0e628f30678e")
+    @GET("cryptocurrency/listings/latest")
+    fun getCoinBySlug(@Query("slug") slug: String): retrofit2.Call<String>
+
+    @Headers("X-CMC_PRO_API_KEY: 648810c2-13a2-4163-86c5-0e628f30678e")
     @GET("cryptocurrency/quotes/latest")
-    fun getCoinBySlug(@Query("symbol") slug: String): retrofit2.Call<String>
+    fun getCoinBySymbol(@Query("symbol") symbol: String): retrofit2.Call<String>
 }

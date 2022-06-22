@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+<<<<<<< HEAD
         RestClient.getReqResApi.getCoins(apiLimit)
             .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
                 override fun onResponse(
@@ -92,6 +93,43 @@ class MainActivity : AppCompatActivity() {
                 }
             })
          */
+=======
+//        RestClient.getReqResApi.getCoins(10)
+//            .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
+//                override fun onResponse(
+//                    call: Call<ReqResData<Coin>>,
+//                    response: Response<ReqResData<Coin>>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        response.body()?.data?.let {
+//                            it.forEach {
+//                                Log.d(it.name, it.quote?.usd?.price.toString());
+//                            }
+//                        }
+//                    }
+//                }
+//                override fun onFailure(call: Call<ReqResData<Coin>>, t: Throwable) {
+//                    t.getLocalizedMessage()?.let { Log.d("XXXX", it) };
+//                }
+//            })
+//        val filterCoin = "Sol"
+//        RestClient.getReqResApi2.getCoinBySymbol( filterCoin)
+//            .enqueue(object : retrofit2.Callback<String> {
+//                override fun onResponse(call: Call<String>, response: Response<String>) {
+//                    if (response.isSuccessful) {
+//                        val text = response.body().toString().substring(response.body().toString().indexOf(filterCoin.uppercase()+"\":{")+5,response.body().toString().length-2 )
+//                        val coin = Gson().fromJson(text , Coin::class.java)
+//                        Log.d("Coin", coin.name.toString())
+//                        Log.d("Coin", coin.symbol.toString())
+//                        Log.d("Coin", coin.quote?.usd?.price.toString())
+//                    }
+//                }
+//                override fun onFailure(call: Call<String>, t: Throwable) {
+//                    TODO("Not yet implemented")
+//                }
+//            })
+
+>>>>>>> a64db8deec08b1974bc08dbf2d9f6733d16c6009
     }
 //    override fun onResume() {
 //        handler.postDelayed(Runnable {
