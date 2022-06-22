@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private var handler: Handler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
     private var delay = 60000
-    private var apiLimit = 10
+    private var apiLimit = 20
     var apiData = mutableListOf<List<String>>()
 
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -89,6 +89,11 @@ class MainActivity : AppCompatActivity() {
                     rowContainer.addView(textPrice)
                     rowContainer.addView(textChange)
                     findViewById<LinearLayout>(R.id.apiDisplayContainer).addView(rowContainer)
+
+                    App.instance.db.getStepDao().insert(Table(0,1,100.0))
+                    App.instance.db.getStepDao().getInvest()?.let { Log.d("Coin", it.boughtPrice.toString())
+                        Log.d("Coin", it.id.toString())
+                    }
                 }
             }catch (e: Exception){
                 Log.e("Error", e.toString())
