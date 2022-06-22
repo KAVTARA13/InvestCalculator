@@ -14,12 +14,18 @@ import com.example.investcalculator.api.dto.ReqResData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Response
+import java.io.File
+import java.math.RoundingMode
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     var handler: Handler = Handler()
     var runnable: Runnable? = null
     var delay = 60000
+    var apiLimit = 2
+    var apiData = mutableListOf<List<String>>()
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
@@ -31,37 +37,44 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         navController = findNavController(R.id.fragmentContainer)
-        /*
-        setupActionBarWithNavController(navController, AppBarConfiguration(
-            setOf(
-                R.id.apiFragment,
-                R.id.buyFragment,
-                R.id.dbFragment,
-                R.id.settingsFragment
-            )
-        ))
-        */
         bottomNavigationView.setupWithNavController(navController)
 
+        fun displayApi(){
+            for (i in 1..apiLimit) {
+                for (j in 1..3){
+                    Log.d("apiData", apiData[i - 1][j - 1])
+                }
+            }
+        }
 
-//        RestClient.getReqResApi.getCoins(1)
-//            .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
-//                override fun onResponse(
-//                    call: Call<ReqResData<Coin>>,
-//                    response: Response<ReqResData<Coin>>
-//                ) {
-//                    if (response.isSuccessful) {
-//                        response.body()?.data?.let {
-//                            it.forEach {
-//                                Log.d(it.name, it.quote?.usd?.price.toString());
-//                            }
-//                        }
-//                    }
-//                }
-//                override fun onFailure(call: Call<ReqResData<Coin>>, t: Throwable) {
-//                    t.getLocalizedMessage()?.let { Log.d("XXXX", it) };
-//                }
-//            })
+        RestClient.getReqResApi.getCoins(apiLimit)
+            .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
+                override fun onResponse(
+                    call: Call<ReqResData<Coin>>,
+                    response: Response<ReqResData<Coin>>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.data?.let { it ->
+                            it.forEach {
+                                val row = listOf(
+                                    it.name.toString(),
+                                    it.symbol.toString(),
+                                    String.format("%.3f", it.quote?.usd?.price?.toFloat()).toDouble().toString())
+                                apiData.add(row)
+                            }
+
+                        }
+                        displayApi()
+                    }
+                }
+                override fun onFailure(call: Call<ReqResData<Coin>>, t: Throwable) {
+                    t.localizedMessage?.let { Log.d("error", it) }
+                }
+            })
+
+
+
+        /*
         val filterCoin = "SOL"
         RestClient.getReqResApi2.getCoinBySlug( filterCoin)
             .enqueue(object : retrofit2.Callback<String> {
@@ -78,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                     TODO("Not yet implemented")
                 }
             })
+         */
     }
 //    override fun onResume() {
 //        handler.postDelayed(Runnable {
