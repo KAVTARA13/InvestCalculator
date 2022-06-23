@@ -89,17 +89,18 @@ class MainActivity : AppCompatActivity() {
                     rowContainer.addView(textPrice)
                     rowContainer.addView(textChange)
                     findViewById<LinearLayout>(R.id.apiDisplayContainer).addView(rowContainer)
-
-                    App.instance.db.getStepDao().insert(Table(0,1,100.0))
-                    App.instance.db.getStepDao().getInvest()?.let { Log.d("Coin", it.boughtPrice.toString())
-                        Log.d("Coin", it.id.toString())
-                    }
                 }
             }catch (e: Exception){
                 Log.e("Error", e.toString())
             }
         }
-
+        App.instance.db.getStepDao().delete()
+        App.instance.db.getStepDao().insert(Table(0,6,800.0,150.0))
+        App.instance.db.getStepDao().getInvest()?.let {
+            it.forEach {
+                Log.d(it.id.toString(),it.boughtPrice.toString())
+            }
+        }
         RestClient.getReqResApi.getCoins(apiLimit)
             .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
                 override fun onResponse(

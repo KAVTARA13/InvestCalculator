@@ -15,4 +15,7 @@ data class Table (
 
     @ColumnInfo(name = "BOUGHT_PRICE")
     val boughtPrice: Double?,
+
+    @ColumnInfo(name = "AMOUNT")
+    val amount: Double?,
 )

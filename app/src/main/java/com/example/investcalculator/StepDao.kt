@@ -11,5 +11,8 @@ interface StepDao {
     fun insert(vararg table: Table)
 
     @Query("SELECT * FROM INVEST")
-    fun getInvest():Table?
+    fun getInvest():List<Table>?
+
+    @Query("DELETE FROM INVEST;")
+    fun delete()
 }
