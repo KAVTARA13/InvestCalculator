@@ -24,12 +24,13 @@ class MainActivity : AppCompatActivity() {
 
     private var handler: Handler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
-    private var delay = 60000
-    private var apiLimit = 20
+    private var delay = 10000
+    private var apiLimit = 10
     var apiData = mutableListOf<List<String>>()
 
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,138 +41,11 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.fragmentContainer)
         bottomNavigationView.setupWithNavController(navController)
 
-        fun displayApi(){
-            try {
-                for (i in 1..apiLimit) {
-                    val textName = TextView(ContextThemeWrapper(this, R.style.CryptoName))
-                    textName.text = apiData[i - 1][0]
-                    val textSymbol = TextView(ContextThemeWrapper(this, R.style.CryptoSymbol))
-                    textSymbol.text = apiData[i - 1][1]
-                    val nameContainer =
-                        LinearLayout(ContextThemeWrapper(this, R.style.NameContainer))
 
-                    nameContainer.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        5.0f
-                    )
-                    nameContainer.layoutParams.width = 0
+        //App.instance.db.getStepDao().delete()
 
-                    nameContainer.addView(textName)
-                    nameContainer.addView(textSymbol)
-                    val textPrice = TextView(ContextThemeWrapper(this, R.style.CryptoLastPrice))
-
-                    textPrice.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        2.5f
-                    )
-                    textPrice.layoutParams.width = 0
-
-                    textPrice.text = "$" + apiData[i - 1][2]
-                    val textChange = TextView(ContextThemeWrapper(this, R.style.Crypto24hChange))
-
-                    textChange.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        2.5f
-                    )
-                    textChange.layoutParams.width = 0
-                    if (apiData[i - 1][3].contains("-")) {
-                        textChange.setTextColor(getColor(R.color.red))
-                        textChange.text = apiData[i - 1][3] + "%"
-                    } else {
-                        textChange.setTextColor(getColor(R.color.green))
-                        textChange.text = "+" + apiData[i - 1][3] + "%"
-                    }
-                    val rowContainer = LinearLayout(ContextThemeWrapper(this, R.style.RowContainer))
-                    rowContainer.addView(nameContainer)
-                    rowContainer.addView(textPrice)
-                    rowContainer.addView(textChange)
-                    findViewById<LinearLayout>(R.id.apiDisplayContainer).addView(rowContainer)
-                }
-            }catch (e: Exception){
-                Log.e("Error", e.toString())
-            }
-        }
-        App.instance.db.getStepDao().delete()
-        App.instance.db.getStepDao().insert(Table(0,6,800.0,150.0))
-        App.instance.db.getStepDao().getInvest()?.let {
-            it.forEach {
-                Log.d(it.id.toString(),it.boughtPrice.toString())
-            }
-        }
-        RestClient.getReqResApi.getCoins(apiLimit)
-            .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
-                override fun onResponse(
-                    call: Call<ReqResData<Coin>>,
-                    response: Response<ReqResData<Coin>>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body()?.data?.let { it ->
-                            it.forEach {
-                                val price = if(String.format("%.0f", it.quote?.usd?.price?.toFloat()).toFloat() > 1.0f){
-                                    String.format("%.0f", it.quote?.usd?.price?.toFloat())
-                                }else{
-                                    String.format("%.3f", it.quote?.usd?.price?.toFloat())
-                                }
-                                val row = listOf(
-                                    it.name.toString(),
-                                    it.symbol.toString(),
-                                    price,
-                                    String.format("%.2f", it.quote?.usd?.percent_change_24h?.toFloat())
-                                )
-                                apiData.add(row)
-                            }
-
-                        }
-                        displayApi()
-                    }
-                }
-                override fun onFailure(call: Call<ReqResData<Coin>>, t: Throwable) {
-                    t.localizedMessage?.let { Log.d("error", it) }
-                }
-            })
-var id =1027
-        RestClient.getReqResApi2.getCoinById( id)
-            .enqueue(object : retrofit2.Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if (response.isSuccessful) {
-                        val text = response.body().toString().substring(response.body().toString().indexOf(
-                            "\"data\":{")+id.toString().length+11,response.body().toString().length-2 )
-                        val coin = Gson().fromJson(text , Coin::class.java)
-                        Log.d("Coin", coin.name.toString())
-//                        Log.d("Coin", coin.symbol.toString())
-//                        Log.d("Coin", coin.quote?.usd?.price.toString())
-                    }
-                }
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-            })
-
-
-//        val filterCoin = "SOL"
-//        RestClient.getReqResApi2.getCoinBySlug( filterCoin)
-//            .enqueue(object : retrofit2.Callback<String> {
-//                override fun onResponse(call: Call<String>, response: Response<String>) {
-//                    if (response.isSuccessful) {
-//                        val text = response.body().toString().substring(response.body().toString().indexOf(
-//                            "$filterCoin\":{"
-//                        )+5,response.body().toString().length-2 )
-//                        val coin = Gson().fromJson(text , Coin::class.java)
-//                        Log.d("Coin", coin.name.toString())
-//                        Log.d("Coin", coin.symbol.toString())
-//                        Log.d("Coin", coin.quote?.usd?.price.toString())
-//                    }
-//                }
-//                override fun onFailure(call: Call<String>, t: Throwable) {
-//                    TODO("Not yet implemented")
-//                }
-//            })
 //
-//
-//        RestClient.getReqResApi.getCoins(10)
+//        RestClient.getReqResApi.getCoins(apiLimit)
 //            .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
 //                override fun onResponse(
 //                    call: Call<ReqResData<Coin>>,
@@ -190,7 +64,7 @@ var id =1027
 //                }
 //            })
 //        val filterCoin = "Sol"
-//        RestClient.getReqResApi2.getCoinBySymbol( filterCoin)
+//        RestClient.getReqResApi2.getCoinBySymbol(filterCoin)
 //            .enqueue(object : retrofit2.Callback<String> {
 //                override fun onResponse(call: Call<String>, response: Response<String>) {
 //                    if (response.isSuccessful) {
@@ -209,25 +83,38 @@ var id =1027
 //    override fun onResume() {
 //        handler.postDelayed(Runnable {
 //            handler.postDelayed(runnable!!, delay.toLong())
-//            RestClient.getReqResApi.getCoins(10)
+//            RestClient.getReqResApi.getCoins(apiLimit)
 //                .enqueue(object : retrofit2.Callback<ReqResData<Coin>> {
 //                    override fun onResponse(
 //                        call: Call<ReqResData<Coin>>,
 //                        response: Response<ReqResData<Coin>>
 //                    ) {
 //                        if (response.isSuccessful) {
+//                            apiData.clear()
 //                            response.body()?.data?.let { it ->
 //                                it.forEach {
-//                                    Log.d(it.name, it.quote?.usd?.price.toString())
+//                                    val price = if(String.format("%.0f", it.quote?.usd?.price?.toFloat()).toFloat() > 1.0f){
+//                                        String.format("%.0f", it.quote?.usd?.price?.toFloat())
+//                                    }else{
+//                                        String.format("%.3f", it.quote?.usd?.price?.toFloat())
+//                                    }
+//                                    val row = listOf(
+//                                        it.name.toString(),
+//                                        it.symbol.toString(),
+//                                        price,
+//                                        String.format("%.2f", it.quote?.usd?.percent_change_24h?.toFloat())
+//                                    )
+//                                    apiData.add(row)
 //                                }
 //                            }
+//                            displayApi()
 //                        }
 //                    }
 //                    override fun onFailure(call: Call<ReqResData<Coin>>, t: Throwable) {
 //                        t.localizedMessage?.let { Log.d("error", it) }
 //                    }
 //                })
-//            Toast.makeText(this@MainActivity, "This method will run every 60 seconds", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@MainActivity, "This method will run every 10 seconds", Toast.LENGTH_SHORT).show()
 //        }.also { runnable = it }, delay.toLong())
 //        super.onResume()
 //    }

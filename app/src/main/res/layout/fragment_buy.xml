@@ -38,9 +38,11 @@
     <!-- everything below will be initially hidden -->
     <LinearLayout
         android:visibility="gone"
-        android:id="@+id/linearLayout"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:id="@+id/searchRowContainer"
         style="@style/RowContainer"
-        android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
         android:background="@color/white_contrast"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,78 +52,105 @@
 
             <LinearLayout style="@style/NameContainer">
 
-                <ImageView
-                    style="@style/CryptoIcon"
-                    android:src="@drawable/ic_baseline_monetization_on_24" />
-                <!-- this src is temporary -->
                 <TextView
+                    android:id="@+id/searchName"
                     style="@style/CryptoName"
-                    android:text="Dogecoin" />
+                    android:text="Name" />
 
                 <TextView
+                    android:id="@+id/searchSymbol"
                     style="@style/CryptoSymbol"
-                    android:text="DOGE" />
+                    android:text="N" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/searchPrice"
                 style="@style/CryptoLastPrice"
-                android:text="$0.058" />
+                android:text="$0" />
 
             <TextView
+                android:id="@+id/searchChange"
                 style="@style/Crypto24hChange"
-                android:text="+6.24%"
-                android:textColor="@color/green" />
+                android:text="+0%"
+                android:textColor="@color/green"/>
         </LinearLayout>
     </LinearLayout>
 
     <Spinner
         android:visibility="gone"
-        android:id="@+id/spinner"
+        android:id="@+id/choiceSpinner"
         android:layout_width="match_parent"
         android:layout_margin="16dp"
         android:layout_height="40dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
         android:background="@color/white_contrast"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/searchRowContainer" />
 
     <LinearLayout
         android:visibility="gone"
-        android:id="@+id/linearLayout2"
+        android:id="@+id/convertContainer"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="16dp"
         android:background="@color/white_contrast"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintTop_toBottomOf="@+id/choiceSpinner"
         tools:layout_editor_absoluteX="16dp">
 
         <EditText
+            android:id="@+id/converterEditText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:backgroundTint="@color/white"
-            android:ems="10"
             android:textColor="@color/dark_grey"
-            android:inputType="number" />
+            android:inputType="numberDecimal"/>
 
-        <ImageView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            android:orientation="horizontal">
+            <TextView
+                android:text="C"
+                android:gravity="center"
+                android:id="@+id/converterIcon1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:ignore="NestedWeights" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
+            <TextView
+                android:text="$"
+                android:gravity="center"
+                android:id="@+id/converterIcon2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="24sp"/>
+        </LinearLayout>
 
         <EditText
+            android:id="@+id/convertedEditText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:backgroundTint="@color/white"
-            android:ems="10"
             android:textColor="@color/light_grey"
-            android:enabled="false"
-            android:inputType="number" />
+            android:enabled="false"/>
     </LinearLayout>
 
     <Button
+        android:id="@+id/buyButton"
         android:visibility="gone"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -134,7 +163,7 @@
         android:backgroundTint="@color/grey"
         android:text="Buy"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/convertContainer" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

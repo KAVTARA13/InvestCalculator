@@ -4,4 +4,11 @@
     <string name="buy_title">Buy Crypto</string>
     <string name="wallet_title">Your Wallet</string>
     <string name="settings_title">Settings</string>
+
+    <string-array name="convert_array">
+        <item>Type in Crypto</item>
+        <item>Type in USD</item>
+    </string-array>
 </resources>
+
+
