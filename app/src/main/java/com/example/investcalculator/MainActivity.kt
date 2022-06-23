@@ -132,8 +132,23 @@ class MainActivity : AppCompatActivity() {
                     t.localizedMessage?.let { Log.d("error", it) }
                 }
             })
-
-
+var id =1027
+        RestClient.getReqResApi2.getCoinById( id)
+            .enqueue(object : retrofit2.Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        val text = response.body().toString().substring(response.body().toString().indexOf(
+                            "\"data\":{")+id.toString().length+11,response.body().toString().length-2 )
+                        val coin = Gson().fromJson(text , Coin::class.java)
+                        Log.d("Coin", coin.name.toString())
+//                        Log.d("Coin", coin.symbol.toString())
+//                        Log.d("Coin", coin.quote?.usd?.price.toString())
+                    }
+                }
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
 
 
 //        val filterCoin = "SOL"
