@@ -183,6 +183,8 @@ class DBFragment : Fragment(R.layout.fragment_db) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handler = Handler(Looper.getMainLooper())
+
+
     }
 
     override fun onPause() {

@@ -43,7 +43,7 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
 
     fun getCoinBySymbol(symbol: String) {
         val filterCoin = symbol.uppercase(Locale.getDefault())
-        RestClient.getReqResApi2.getCoinBySlug(filterCoin)
+        RestClient.getReqResApi2.getCoinBySymbol(filterCoin)
             .enqueue(object : retrofit2.Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
@@ -96,7 +96,7 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
         App.instance.db.getStepDao().insert(
             Table(
                 0,
-                5,
+                1,
                 100.0,
                 view?.findViewById<EditText>(R.id.converterEditText)?.text.toString().toDouble(),
             )

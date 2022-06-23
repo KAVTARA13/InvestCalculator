@@ -63,20 +63,20 @@ class MainActivity : AppCompatActivity() {
 //                    t.localizedMessage?.let { Log.d("error", it) }
 //                }
 //            })
-//        val filterCoin = "Sol"
+//        val filterCoin = "Solana"
 //        RestClient.getReqResApi2.getCoinBySymbol(filterCoin)
 //            .enqueue(object : retrofit2.Callback<String> {
 //                override fun onResponse(call: Call<String>, response: Response<String>) {
 //                    if (response.isSuccessful) {
 //                        val text = response.body().toString().substring(response.body().toString().indexOf(filterCoin.uppercase()+"\":{")+5,response.body().toString().length-2 )
 //                        val coin = Gson().fromJson(text , Coin::class.java)
-//                        Log.d("Coin", coin.name.toString())
-//                        Log.d("Coin", coin.symbol.toString())
-//                        Log.d("Coin", coin.quote?.usd?.price.toString())
+//                        Log.d("aCoin", coin.name.toString())
+//                        Log.d("aCoin", coin.symbol.toString())
+//                        Log.d("aCoin", coin.quote?.usd?.price.toString())
 //                    }
 //                }
 //                override fun onFailure(call: Call<String>, t: Throwable) {
-//                    TODO("Not yet implemented")
+//                    Log.d("aCoin", "error")
 //                }
 //            })
     }
