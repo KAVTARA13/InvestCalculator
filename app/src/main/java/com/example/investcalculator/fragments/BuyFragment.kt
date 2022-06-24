@@ -25,6 +25,8 @@ import java.util.*
 
 class BuyFragment : Fragment(R.layout.fragment_buy) {
 
+    private var searchCoinID = 0
+
     var spinnerChoice = 0
 
     fun makeVisible() {
@@ -46,41 +48,60 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
         RestClient.getReqResApi2.getCoinBySymbol(filterCoin)
             .enqueue(object : retrofit2.Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if (response.isSuccessful) {
-                        val text = response.body().toString().substring(
-                            response.body().toString().indexOf(
-                                "$filterCoin\":{"
-                            ) + 5, response.body().toString().length - 2
-                        )
-                        val coin = Gson().fromJson(text, Coin::class.java)
-                        val price =
-                            if (String.format("%.0f", coin.quote?.usd?.price?.toFloat())
-                                    .toFloat() > 1.0f
-                            ) {
-                                String.format("%.0f", coin.quote?.usd?.price?.toFloat())
-                            } else {
-                                String.format("%.3f", coin.quote?.usd?.price?.toFloat())
+                    try {
+                        if (response.isSuccessful) {
+                            val text: String = when (filterCoin.length) {
+                                3 -> {
+                                    response.body().toString().substring(
+                                        response.body().toString().indexOf(
+                                            "$filterCoin\":{"
+                                        ) + 5, response.body().toString().length - 2
+                                    )
+                                }
+                                4 -> {
+                                    response.body().toString().substring(
+                                        response.body().toString().indexOf(
+                                            "$filterCoin\":{"
+                                        ) + 6, response.body().toString().length - 2
+                                    )
+                                }
+                                else -> {
+                                    return
+                                }
                             }
-                        displaySearch(
-                            coin.name.toString(),
-                            coin.symbol.toString(),
-                            price,
-                            coin.quote?.usd?.percent_change_24h.toString()
-                        )
+                            val coin = Gson().fromJson(text, Coin::class.java)
+                            val price = if (coin.quote?.usd?.price?.toFloat()!! > 1.0f) {
+                                String.format("%.0f", coin.quote.usd.price.toFloat())
+                            } else if (coin.quote.usd.price.toFloat() > 0.1f) {
+                                String.format("%.3f", coin.quote.usd.price.toFloat())
+                            } else {
+                                String.format("%.6f", coin.quote.usd.price.toFloat())
+                            }
+                            displaySearch(
+                                coin.name.toString(),
+                                coin.symbol.toString(),
+                                price,
+                                String.format("%.3f", coin.quote.usd.percent_change_24h?.toFloat()),
+                                coin.coinID!!
+                            )
+                        }
+                    } catch (e: Exception) {
+                        Log.e("Error", e.toString())
                     }
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.d("Error", t.toString())
-                    displaySearch("N/A", "N/A", "N/A", "N/A")
+                    displaySearch("N/A", "N/A", "N/A", "N/A", 0)
                 }
             })
     }
 
-    fun displaySearch(name: String, symbol: String, price: String, change: String) {
+    fun displaySearch(name: String, symbol: String, price: String, change: String, coinID: Int) {
+        searchCoinID = coinID
         view?.findViewById<TextView>(R.id.searchName)?.text = name
         view?.findViewById<TextView>(R.id.searchSymbol)?.text = symbol
-        view?.findViewById<TextView>(R.id.searchPrice)?.text = price
+        view?.findViewById<TextView>(R.id.searchPrice)?.text = "$$price"
         if (change.contains("-")) {
             view?.findViewById<TextView>(R.id.searchChange)
                 ?.setTextColor(ContextCompat.getColor(context!!, R.color.red))
@@ -96,11 +117,12 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
         App.instance.db.getStepDao().insert(
             Table(
                 0,
-                1,
-                100.0,
+                searchCoinID,
+                view?.findViewById<TextView>(R.id.searchPrice)?.text.toString().drop(1).toDouble(),
                 view?.findViewById<EditText>(R.id.converterEditText)?.text.toString().toDouble(),
             )
         )
+        Toast.makeText(context, "Added to your Wallet", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateView(

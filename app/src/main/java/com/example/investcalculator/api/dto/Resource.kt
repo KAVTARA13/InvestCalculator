@@ -3,6 +3,8 @@ package com.example.investcalculator.api.dto
 import com.google.gson.annotations.SerializedName
 
 data class Coin(
+    @SerializedName("id")
+    val coinID:Int?,
     @SerializedName("name")
     val name:String?,
     @SerializedName("symbol")

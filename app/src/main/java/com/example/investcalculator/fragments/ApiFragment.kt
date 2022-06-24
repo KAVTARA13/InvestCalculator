@@ -103,21 +103,20 @@ class ApiFragment : Fragment(R.layout.fragment_api) {
                         apiData.clear()
                         response.body()?.data?.let { it ->
                             it.forEach {
-                                val price =
-                                    if (String.format("%.0f", it.quote?.usd?.price?.toFloat())
-                                            .toFloat() > 1.0f
-                                    ) {
-                                        String.format("%.0f", it.quote?.usd?.price?.toFloat())
-                                    } else {
-                                        String.format("%.3f", it.quote?.usd?.price?.toFloat())
-                                    }
+                                val price = if (it.quote?.usd?.price?.toFloat()!! > 1.0f){
+                                    String.format("%.0f", it.quote.usd.price.toFloat())
+                                }else if (it.quote.usd.price.toFloat() > 0.1f){
+                                    String.format("%.3f", it.quote.usd.price.toFloat())
+                                }else{
+                                    String.format("%.6f", it.quote.usd.price.toFloat())
+                                }
                                 val row = listOf(
                                     it.name.toString(),
                                     it.symbol.toString(),
                                     price,
                                     String.format(
                                         "%.2f",
-                                        it.quote?.usd?.percent_change_24h?.toFloat()
+                                        it.quote.usd.percent_change_24h?.toFloat()
                                     )
                                 )
                                 apiData.add(row)

@@ -38,7 +38,7 @@ class DBFragment : Fragment(R.layout.fragment_db) {
         try {
             val dbTable = view?.findViewById<LinearLayout>(R.id.dbDisplayContainer)
             dbTable?.removeAllViews()
-            for (i in 1..10) {
+            for (i in 1..dbData.size) {
                 val textName = TextView(ContextThemeWrapper(context, R.style.CryptoName))
                 textName.text = dbData[i - 1][0]
                 textName.layoutParams = LinearLayout.LayoutParams(
@@ -111,29 +111,30 @@ class DBFragment : Fragment(R.layout.fragment_db) {
             it.forEach {
                 val coinData = getCoinByID(it.coinId!!)
                 val currentPriceX = coinData[1].toFloat()
-                val boughtPrice =
-                    if (String.format("%.0f", it.boughtPrice?.toFloat())
-                            .toFloat() > 1.0f
-                    ) {
-                        String.format("%.0f", it.boughtPrice?.toFloat())
-                    } else {
-                        String.format("%.3f", it.boughtPrice?.toFloat())
-                    }
-                val currentPrice =
-                    if (String.format("%.0f", currentPriceX)
-                            .toFloat() > 1.0f
-                    ) {
-                        String.format("%.0f", currentPriceX)
-                    } else {
-                        String.format("%.3f", currentPriceX)
-                    }
+                val boughtPrice = if (it.boughtPrice?.toFloat()!! > 1.0f) {
+                    String.format("%.0f", it.boughtPrice.toFloat())
+                } else if (it.boughtPrice.toFloat() > 0.1f) {
+                    String.format("%.2f", it.boughtPrice.toFloat())
+                } else {
+                    String.format("%.4f", it.boughtPrice.toFloat())
+                }
+                val currentPrice = if (currentPriceX > 1.0f) {
+                    String.format("%.0f", currentPriceX)
+                } else if (currentPriceX > 0.1f) {
+                    String.format("%.2f", currentPriceX)
+                } else {
+                    String.format("%.4f", currentPriceX)
+                }
 
                 val row = listOf(
                     coinData[0],
-                    DecimalFormat("0.#").format(it.amount?.toFloat()),
+                    DecimalFormat("0.#").format(it.amount),
                     DecimalFormat("0.#").format(boughtPrice.toFloat()),
                     DecimalFormat("0.#").format(currentPrice.toFloat()),
-                    DecimalFormat("0.#").format((currentPrice.toFloat() - boughtPrice.toFloat()) * 100 / boughtPrice.toFloat())
+                    DecimalFormat("0.#").format(String.format(
+                        "%.2f",
+                        (currentPrice.toFloat() - boughtPrice.toFloat()) * 100 / boughtPrice.toFloat()
+                    ).toFloat())
                 )
                 dbData.add(row)
             }
