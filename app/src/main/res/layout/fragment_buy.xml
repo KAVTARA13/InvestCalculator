@@ -37,7 +37,7 @@
 
     <!-- everything below will be initially hidden -->
     <LinearLayout
-
+        android:visibility="gone"
         android:paddingStart="14dp"
         android:paddingEnd="14dp"
         android:id="@+id/searchRowContainer"
