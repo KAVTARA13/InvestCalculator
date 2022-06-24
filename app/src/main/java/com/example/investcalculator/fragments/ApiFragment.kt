@@ -23,7 +23,7 @@ import retrofit2.Response
 class ApiFragment : Fragment(R.layout.fragment_api) {
 
     var delay: Long = 10000
-    private var apiLimit = 16
+    private var apiLimit = 32
     var apiData = mutableListOf<List<String>>()
     lateinit var handler: Handler
 
@@ -103,11 +103,11 @@ class ApiFragment : Fragment(R.layout.fragment_api) {
                         apiData.clear()
                         response.body()?.data?.let { it ->
                             it.forEach {
-                                val price = if (it.quote?.usd?.price?.toFloat()!! > 1.0f){
+                                val price = if (it.quote?.usd?.price?.toFloat()!! > 1.0f) {
                                     String.format("%.0f", it.quote.usd.price.toFloat())
-                                }else if (it.quote.usd.price.toFloat() > 0.1f){
+                                } else if (it.quote.usd.price.toFloat() > 0.1f) {
                                     String.format("%.3f", it.quote.usd.price.toFloat())
-                                }else{
+                                } else {
                                     String.format("%.6f", it.quote.usd.price.toFloat())
                                 }
                                 val row = listOf(
