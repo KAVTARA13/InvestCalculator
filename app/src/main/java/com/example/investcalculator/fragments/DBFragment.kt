@@ -35,8 +35,6 @@ class DBFragment : Fragment(R.layout.fragment_db) {
     }
 
     private fun displayDB() {
-        Log.d("dbLog", dbData.toString())
-        Log.d("dbLog", dbData.size.toString())
         try {
             val dbTable = view?.findViewById<LinearLayout>(R.id.dbDisplayContainer)
             dbTable?.removeAllViews()

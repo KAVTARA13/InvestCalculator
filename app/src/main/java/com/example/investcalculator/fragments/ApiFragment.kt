@@ -120,7 +120,6 @@ class ApiFragment : Fragment(R.layout.fragment_api) {
                                         it.quote?.usd?.percent_change_24h?.toFloat()
                                     )
                                 )
-                                Log.d("apiRow", row.toString())
                                 apiData.add(row)
                             }
                         }
