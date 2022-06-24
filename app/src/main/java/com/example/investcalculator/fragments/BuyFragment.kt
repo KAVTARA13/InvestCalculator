@@ -50,25 +50,11 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     try {
                         if (response.isSuccessful) {
-                            val text: String = when (filterCoin.length) {
-                                3 -> {
-                                    response.body().toString().substring(
-                                        response.body().toString().indexOf(
-                                            "$filterCoin\":{"
-                                        ) + 5, response.body().toString().length - 2
-                                    )
-                                }
-                                4 -> {
-                                    response.body().toString().substring(
-                                        response.body().toString().indexOf(
-                                            "$filterCoin\":{"
-                                        ) + 6, response.body().toString().length - 2
-                                    )
-                                }
-                                else -> {
-                                    return
-                                }
-                            }
+                            val text = response.body().toString().substring(
+                                response.body().toString().indexOf(
+                                    "$filterCoin\":{"
+                                ) + (2 + filterCoin.length), response.body().toString().length - 2
+                            )
                             val coin = Gson().fromJson(text, Coin::class.java)
                             val price = if (coin.quote?.usd?.price?.toFloat()!! > 1.0f) {
                                 String.format("%.0f", coin.quote.usd.price.toFloat())
@@ -114,16 +100,22 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
     }
 
     private fun buyCrypto() {
+        val amount: Double = if(spinnerChoice == 0) {
+            view?.findViewById<EditText>(R.id.converterEditText)?.text.toString().toDouble()
+        }else {
+            view?.findViewById<EditText>(R.id.converterEditText)?.text.toString().toDouble()
+        }
         App.instance.db.getStepDao().insert(
             Table(
                 0,
                 searchCoinID,
                 view?.findViewById<TextView>(R.id.searchPrice)?.text.toString().drop(1).toDouble(),
-                view?.findViewById<EditText>(R.id.converterEditText)?.text.toString().toDouble(),
+                amount,
             )
         )
         Toast.makeText(context, "Added to your Wallet", Toast.LENGTH_SHORT).show()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -173,11 +165,24 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
                 if (converterEditText.text.isEmpty()) {
                     convertedEditText.setText("")
                 } else {
-                    convertedEditText.setText(
-                        DecimalFormat("0.#").format(
-                            converterEditText.text.toString().toFloat() * spinnerChoice
+                    if (spinnerChoice == 0) {
+                        convertedEditText.setText(
+
+                            (converterEditText.text.toString()
+                                .toFloat() * view.findViewById<TextView>(R.id.searchPrice)?.text.toString()
+                                .drop(1).toFloat()).toString()
                         )
-                    )
+                    } else {
+                        convertedEditText.setText(
+                            DecimalFormat("0.#").format(
+                                String.format("%.6f",
+                                    converterEditText.text.toString()
+                                        .toFloat() / view.findViewById<TextView>(R.id.searchPrice)?.text.toString()
+                                        .drop(1).toFloat()
+                                ).toFloat()
+                            ).toString()
+                        )
+                    }
                 }
             }
 
@@ -211,19 +216,19 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
                 position: Int,
                 id: Long
             ) {
-                convertedEditText.setText("")
-                converterEditText.setText("")
-                if (spinnerChoice == 0) {
-                    view?.findViewById<TextView>(R.id.converterIcon1)?.text = "C"
-                    view?.findViewById<TextView>(R.id.converterIcon2)?.text = "$"
-                } else {
-                    view?.findViewById<TextView>(R.id.converterIcon1)?.text = "$"
-                    view?.findViewById<TextView>(R.id.converterIcon2)?.text = "C"
-                }
                 spinnerChoice = if (position == 0) {
                     0
                 } else {
                     1
+                }
+                convertedEditText.setText("")
+                converterEditText.setText("")
+                if (spinnerChoice == 0) {
+                    view?.findViewById<TextView>(R.id.converterIcon1)?.text = "XXX"
+                    view?.findViewById<TextView>(R.id.converterIcon2)?.text = "XXX"
+                } else {
+                    view?.findViewById<TextView>(R.id.converterIcon1)?.text = "XXX"
+                    view?.findViewById<TextView>(R.id.converterIcon2)?.text = "XXX"
                 }
             }
         }

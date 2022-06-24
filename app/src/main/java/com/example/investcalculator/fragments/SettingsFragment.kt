@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import com.example.investcalculator.AirplaneModeChangedReceiver
+import com.example.investcalculator.App
 import com.example.investcalculator.R
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
@@ -26,6 +27,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val clearWalletButton = view.findViewById<View>(R.id.clearWalletButton)
+        clearWalletButton.setOnClickListener {
+            App.instance.db.getStepDao().delete()
+            Toast.makeText(context, "Wallet cleared", Toast.LENGTH_SHORT).show()
+        }
 
         val darkModeSwitch = view.findViewById<SwitchCompat>(R.id.darkModeSwitch)
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->

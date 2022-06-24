@@ -36,8 +36,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
 
-        //App.instance.db.getStepDao().delete()
-
 //        val filterCoin = "Bitcoin"
 //        RestClient.getReqResApi2.getCoinBySymbol(filterCoin)
 //            .enqueue(object : retrofit2.Callback<String> {

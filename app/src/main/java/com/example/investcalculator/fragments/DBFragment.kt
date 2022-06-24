@@ -3,6 +3,8 @@ package com.example.investcalculator.fragments
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
@@ -143,31 +145,22 @@ class DBFragment : Fragment(R.layout.fragment_db) {
     }
 
     private fun getCoinByID(id: Int): List<String> {
+        val policy = ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy);
         var coinData = listOf("name", "0")
-        RestClient.getReqResApi2.getCoinById(id)
-            .enqueue(object : retrofit2.Callback<String> {
-                override fun onResponse(
-                    call: Call<String>,
-                    response: Response<String>
-                ) {
-                    if (response.isSuccessful) {
-                        val text = response.body().toString().substring(
-                            response.body().toString().indexOf(
-                                "\"data\":{"
-                            ) + id.toString().length + 11, response.body().toString().length - 2
-                        )
-                        val coin = Gson().fromJson(text, Coin::class.java)
-                        coinData = mutableListOf(
-                            coin.name.toString(),
-                            String.format("%.2f", coin.quote?.usd?.price?.toFloat())
-                        )
-                    }
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.e("Error", t.toString())
-                }
-            })
+        val response = RestClient.getReqResApi2.getCoinById(id).execute()
+        if (response.isSuccessful) {
+            val text = response.body().toString().substring(
+                response.body().toString().indexOf(
+                    "\"data\":{"
+                ) + id.toString().length + 11, response.body().toString().length - 2
+            )
+            val coin = Gson().fromJson(text, Coin::class.java)
+            coinData = mutableListOf(
+                coin.name.toString(),
+                String.format("%.2f", coin.quote?.usd?.price?.toFloat())
+            )
+        }
         return coinData
     }
 
