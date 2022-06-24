@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/darkModeSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,6 +41,14 @@
             android:textSize="20sp"
             android:layout_marginBottom="8dp"
             android:text="Dark Mode" />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/airplaneMonitorSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey"
+            android:textSize="20sp"
+            android:layout_marginBottom="8dp"
+            android:text="Consider Airplane Mode" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
