@@ -3,6 +3,7 @@ package com.example.investcalculator.fragments
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import com.example.investcalculator.*
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private lateinit var receiver: AirplaneModeChangedReceiver
-    private var settingsData = ModelPreferencesManager.get<Settings>("KEY_Settings")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +35,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             App.instance.db.getStepDao().delete()
             Toast.makeText(context, "Wallet cleared", Toast.LENGTH_SHORT).show()
         }
+        val settingsData = ModelPreferencesManager.get<Settings>("KEY_Settings")
 
         view.findViewById<SwitchCompat>(R.id.darkModeSwitch).isChecked =
             settingsData?.darkMode != "0"
