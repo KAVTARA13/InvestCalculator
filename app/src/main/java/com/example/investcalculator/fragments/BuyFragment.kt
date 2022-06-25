@@ -27,7 +27,6 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
 
     private var searchCoinID = 0
 
-    var spinnerChoice = 0
 
     fun makeVisible() {
         view?.findViewById<LinearLayout>(R.id.searchRowContainer)?.visibility = View.VISIBLE
@@ -99,23 +98,6 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
         }
     }
 
-    private fun buyCrypto() {
-        val amount: Double = if(spinnerChoice == 0) {
-            view?.findViewById<EditText>(R.id.converterEditText)?.text.toString().toDouble()
-        }else {
-            view?.findViewById<EditText>(R.id.converterEditText)?.text.toString().toDouble()
-        }
-        App.instance.db.getStepDao().insert(
-            Table(
-                0,
-                searchCoinID,
-                view?.findViewById<TextView>(R.id.searchPrice)?.text.toString().drop(1).toDouble(),
-                amount,
-            )
-        )
-        Toast.makeText(context, "Added to your Wallet", Toast.LENGTH_SHORT).show()
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -129,7 +111,34 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
         super.onViewCreated(view, savedInstanceState)
         val converterEditText = view.findViewById<EditText>(R.id.converterEditText)
         val convertedEditText = view.findViewById<EditText>(R.id.convertedEditText)
+        val icon1 = view.findViewById<TextView>(R.id.converterIcon1)
+        val icon2 = view.findViewById<TextView>(R.id.converterIcon2)
         val searchView = view.findViewById<SearchView>(R.id.searchView)
+        var spinnerChoice = 0
+
+        fun buyCrypto() {
+            val amount: Double = if (spinnerChoice == 0) {
+                view.findViewById<EditText>(R.id.converterEditText)?.text.toString().toDouble()
+            } else {
+                view.findViewById<EditText>(R.id.convertedEditText)?.text.toString().toDouble()
+            }
+            App.instance.db.getStepDao().insert(
+                Table(
+                    0,
+                    searchCoinID,
+                    view.findViewById<TextView>(R.id.searchPrice)?.text.toString().drop(1)
+                        .toDouble(),
+                    amount,
+                )
+            )
+            Toast.makeText(context, "Added to your Wallet", Toast.LENGTH_SHORT).show()
+        }
+
+        val buyButton = view.findViewById<Button>(R.id.buyButton)
+        buyButton?.setOnClickListener {
+            buyCrypto()
+        }
+
         searchView.setOnClickListener {
             Handler(Looper.getMainLooper()).postDelayed({
                 searchView.isIconified = false
@@ -167,7 +176,6 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
                 } else {
                     if (spinnerChoice == 0) {
                         convertedEditText.setText(
-
                             (converterEditText.text.toString()
                                 .toFloat() * view.findViewById<TextView>(R.id.searchPrice)?.text.toString()
                                 .drop(1).toFloat()).toString()
@@ -175,7 +183,8 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
                     } else {
                         convertedEditText.setText(
                             DecimalFormat("0.#").format(
-                                String.format("%.6f",
+                                String.format(
+                                    "%.6f",
                                     converterEditText.text.toString()
                                         .toFloat() / view.findViewById<TextView>(R.id.searchPrice)?.text.toString()
                                         .drop(1).toFloat()
@@ -193,10 +202,6 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
             }
         })
 
-        val buyButton = view.findViewById<Button>(R.id.buyButton)
-        buyButton?.setOnClickListener {
-            buyCrypto()
-        }
         val spinner = view.findViewById<Spinner>(R.id.choiceSpinner)
         ArrayAdapter.createFromResource(
             context!!,
@@ -218,17 +223,18 @@ class BuyFragment : Fragment(R.layout.fragment_buy) {
             ) {
                 spinnerChoice = if (position == 0) {
                     0
+
                 } else {
                     1
                 }
                 convertedEditText.setText("")
                 converterEditText.setText("")
                 if (spinnerChoice == 0) {
-                    view?.findViewById<TextView>(R.id.converterIcon1)?.text = "XXX"
-                    view?.findViewById<TextView>(R.id.converterIcon2)?.text = "XXX"
+                    icon1.text = "C"
+                    icon2.text = "$"
                 } else {
-                    view?.findViewById<TextView>(R.id.converterIcon1)?.text = "XXX"
-                    view?.findViewById<TextView>(R.id.converterIcon2)?.text = "XXX"
+                    icon1.text = "$"
+                    icon2.text = "C"
                 }
             }
         }
