@@ -15,4 +15,10 @@ interface StepDao {
 
     @Query("DELETE FROM INVEST;")
     fun delete()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertNotification(vararg notification: NotificationTable)
+
+    @Query("SELECT * FROM NOTIFICATION")
+    fun getNotification():List<NotificationTable>?
 }

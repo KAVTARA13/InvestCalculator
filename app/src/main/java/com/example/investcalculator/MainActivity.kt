@@ -1,7 +1,11 @@
 package com.example.investcalculator
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +18,8 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.app.NotificationCompat
+import com.example.investcalculator.Notification.CHANNEL_ID
 import com.example.investcalculator.api.RestClient
 import com.example.investcalculator.api.dto.Coin
 import com.google.gson.Gson
@@ -36,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
 
+
 //        val filterCoin = "Bitcoin"
 //        RestClient.getReqResApi2.getCoinBySymbol(filterCoin)
 //            .enqueue(object : retrofit2.Callback<String> {
@@ -56,5 +63,14 @@ class MainActivity : AppCompatActivity() {
 //                    Log.d("aCoin", "error")
 //                }
 //            })
+    }
+    private fun createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val notificationChannel = NotificationChannel(CHANNEL_ID, CHANNEL_ID,NotificationManager.IMPORTANCE_DEFAULT).apply {
+                description = "My messages"
+            }
+            val manager : NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(notificationChannel)
+        }
     }
 }
