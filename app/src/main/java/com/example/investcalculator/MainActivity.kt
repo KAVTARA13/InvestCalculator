@@ -43,6 +43,7 @@ class MainActivity : FragmentActivity() {
         ModelPreferencesManager.with(application)
         val settingsData = ModelPreferencesManager.get<Settings>("KEY_Settings")
 
+        //settingsData?.compactMode = "1"
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         mPager = findViewById(R.id.pager)
