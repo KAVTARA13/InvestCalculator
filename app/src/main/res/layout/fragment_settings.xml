@@ -33,23 +33,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UI Settings:"
+            android:textColor="@color/light_grey"/>
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/darkModeSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_grey"
             android:textSize="20sp"
-            android:layout_marginBottom="8dp"
             android:text="Dark Mode" />
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/airplaneMonitorSwitch"
+            android:id="@+id/compactModeSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_grey"
             android:textSize="20sp"
-            android:layout_marginBottom="8dp"
-            android:text="Consider Airplane Mode" />
+            android:text="Compact Interface" />
+
         <LinearLayout
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -64,8 +70,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="in minutes"/>
+                android:text="in Seconds"/>
             <EditText
+                android:id="@+id/apiUR"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -78,8 +85,61 @@
                 android:inputType="number" />
 
         </LinearLayout>
-        <Button
+        <LinearLayout
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:textColor="@color/dark_grey"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                android:text="Database Update Rate"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="in Seconds"/>
+            <EditText
+                android:id="@+id/dbUR"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white_contrast"
+                android:ems="10"
+                android:text="30"
+                android:textSize="14sp"
+                android:padding="4dp"
+                android:textColor="@color/grey"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <TextView
             android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Background Settings:"
+            android:textColor="@color/light_grey"/>
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/airplaneMonitorSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey"
+            android:textSize="20sp"
+            android:layout_marginBottom="8dp"
+            android:text="Consider Airplane Mode" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wallet Settings:"
+            android:textColor="@color/light_grey"/>
+        <Button
+            android:layout_marginTop="8dp"
             android:id="@+id/clearWalletButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

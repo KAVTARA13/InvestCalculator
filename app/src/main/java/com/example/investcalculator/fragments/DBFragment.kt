@@ -26,7 +26,7 @@ import java.text.DecimalFormat
 class DBFragment : Fragment(R.layout.fragment_db) {
 
     lateinit var handler: Handler
-    var delay: Long = 10000
+    var delay: Long = 30000
     private var dbData = mutableListOf<List<String>>()
 
     private val dbUpdate = object : Runnable {
@@ -147,7 +147,7 @@ class DBFragment : Fragment(R.layout.fragment_db) {
     private fun getCoinByID(id: Int): List<String> {
         val policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy);
-        var coinData = listOf("name", "0")
+        var coinData = listOf("N/A", "0")
         val response = RestClient.getReqResApi2.getCoinById(id).execute()
         if (response.isSuccessful) {
             val text = response.body().toString().substring(

@@ -22,7 +22,7 @@ import retrofit2.Response
 
 class ApiFragment : Fragment(R.layout.fragment_api) {
 
-    var delay: Long = 10000
+    var delay: Long = 30000
     private var apiLimit = 32
     var apiData = mutableListOf<List<String>>()
     lateinit var handler: Handler
